@@ -3,7 +3,7 @@ function randomDate() {
 }
 
 function randomCost(max) {
-  return max * Math.random().toFixed(2);
+  return (max * Math.random()).toFixed(2);
 }
 
 export const dummy_data = [
@@ -17,8 +17,8 @@ export const dummy_data = [
         { id: 2, cost: randomCost(10000), date: randomDate() }
       ],
       travel: [
-        { id: 1,cost: randomCost(10000), date: randomDate() },
-        { id: 2,cost: randomCost(10000), date: randomDate() }
+        { id: 1, cost: randomCost(10000), date: randomDate() },
+        { id: 2, cost: randomCost(10000), date: randomDate() }
       ],
       health: [
         { id: 1, cost: randomCost(10000), date: randomDate() },

@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { isNumber } from "lodash";
 import { dummy_data } from "../data/data";
 
 export const dataSlice = createSlice({
-  data: dummy_data,
-
+  name: "data",
+  initialState: {
+    data: dummy_data
+  },
   reducers: {
     setFirstName: (state, action) => {
       const { id, firstName } = action.payload;
@@ -75,10 +76,10 @@ export const dataSlice = createSlice({
       const { id, category, record_id } = action.payload;
       state.data = state.data.map((user) => {
         if (user.id === id) {
-          user.category[category].map(record => {
-            if(record.id === record_id) return;
+          user.category[category].map((record) => {
+            if (record.id === record_id) return;
             return record;
-          })
+          });
         }
         return user;
       });
