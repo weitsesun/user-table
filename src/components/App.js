@@ -1,8 +1,9 @@
 import React from 'react'
+import "./App.scss"
 
 export default function App() {
   return (
-    <div>
+    <div className="app">
       Hello world
     </div>
   )
