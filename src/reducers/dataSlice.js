@@ -7,6 +7,28 @@ export const dataSlice = createSlice({
     data: dummy_data
   },
   reducers: {
+    setData: (state, action) => {
+      state.data = action.payload;
+    },
+    // calculateTotalExpenseForUser: (state, action) => {
+
+    // },
+    calculateTotalExpenseForAll: (state) => {
+      const allCate = state.data.map((user) => user.category);
+      const allCost = allCate.map((item) =>
+        Object.keys(item).map((key) =>
+          item[key].reduce((acc, record) => (acc += Number(record.cost)), 0)
+        )
+      );
+      const expenseRecords = allCost.map(
+        (costs) => costs.reduce((acc, cost) => (acc += cost)),
+        0
+      );
+      state.data = state.data.map((user, idx) => {
+        user["totalExpense"] = expenseRecords[idx];
+        return user;
+      });
+    },
     setFirstName: (state, action) => {
       const { id, firstName } = action.payload;
       if (!id || !firstName) {
@@ -66,11 +88,15 @@ export const dataSlice = createSlice({
       });
     },
     deleteUser: (state, action) => {
-      const { id } = action.payload;
-      state.data = state.data.map((user) => {
-        if (user.id === id) return;
-        return user;
-      });
+      const id = action.payload;
+      let targetIndex = -1;
+      state.data.forEach((user, idx) => {
+        if(user.id === id) targetIndex = idx;
+      })
+      state.data = [
+        ...state.data.slice(0, targetIndex),
+        ...state.data.slice(targetIndex + 1, state.data.length)
+      ];
     },
     deleteRecord: (state, action) => {
       const { id, category, record_id } = action.payload;
@@ -88,6 +114,8 @@ export const dataSlice = createSlice({
 });
 
 export const {
+  setData,
+  calculateTotalExpenseForAll,
   setFirstName,
   setLastName,
   setCategoryCost,

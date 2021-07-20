@@ -3,7 +3,7 @@ function randomDate() {
 }
 
 function randomCost(max) {
-  return (max * Math.random()).toFixed(2);
+  return parseInt(max * Math.random());
 }
 
 export const dummy_data = [

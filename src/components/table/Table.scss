@@ -1,3 +1,19 @@
 .table {
   width: 100%;
+  border: 1px solid black;
+  
+  .row_header_cell {
+    border-right: 1px solid gray;
+  }
+
+  .row_body_cell{
+    text-align: right;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    padding: 0 10px;
+  }
+  .row_body_cell:last-child,
+  .row_header_cell:last-child {
+    border-right: none;
+  }
 }

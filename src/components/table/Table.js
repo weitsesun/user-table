@@ -7,7 +7,7 @@ export default function Table({ columns }) {
   return (
     <table className="table">
       <TableHead columns={columns}/>
-      <TableBody />
+      <TableBody columns={columns}/>
     </table>
   );
 }

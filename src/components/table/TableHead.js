@@ -5,9 +5,7 @@ export default function TableHead({columns}) {
   const data = useSelector(state => state.data);
 
   function renderCell(column) {
-    // {id, value}
-    console.log(column)
-    return <th>
+    return <th className="row_header_cell">
       {column.value}
     </th>
   }
