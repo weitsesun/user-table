@@ -1,29 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { get } from "lodash";
 import moment from "moment";
 
-export default function TableBody({ data, columns }) {
-  function renderCell(column, item) {
-    let value =
-      column.id !== "date"
-        ? get(item, column.id, void 0)
-        : moment(get(item, column.id, void 0)).format("YYYY/MM/DD");
+export default function UserTableBody({ data, columns }) {
+
+  function renderCell(column, user) {
+    const [firstName, setFirstName] = useState(user.firstName);
+    const [lastName, setLastName] = useState(user.lastName);
+    
     return (
       <td key={Math.random()} className="row_body_cell">
         <input
           className="row_input"
-          value={value}
+          value={column.id == "firstName" ? firstName : lastName}
           disabled={column.disabled}
           type={column.type}
           onChange={(e) => {
-            column.onChange(item.id, e.target.value);
+            column.id === "firstName"
+              ? setFirstName(e.target.value)
+              : setLastName(e.target.value);
           }}
         />
       </td>
     );
   }
 
-  function renderRow(item) {
+  function renderRow(user) {
     return (
       <tr
         key={Math.random()}
@@ -33,7 +35,7 @@ export default function TableBody({ data, columns }) {
           gridTemplateColumns: `repeat(${columns.length}, 1fr)`
         }}
       >
-        {columns.map((column) => renderCell(column, item))}
+        {columns.map((column) => renderCell(column, user))}
       </tr>
     );
   }
