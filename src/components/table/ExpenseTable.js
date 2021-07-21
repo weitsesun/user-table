@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Table.scss";
 import EditableExpenseRow from "./EditableExpenseRow";
 import ReadOnlyExpenseRow from "./ReadOnlyExpenseRow";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ExpenseTable({ expenseData, setExpenseData }) {
   const [addExpenseData, setAddExpenseData] = useState({
@@ -34,10 +35,13 @@ export default function ExpenseTable({ expenseData, setExpenseData }) {
   function handleAddNewCostSubmit(e) {
     e.preventDefault();
     const newExpense = {
+      id: uuidv4(),
       cost: addExpenseData.cost,
       date: addExpenseData.date
     };
+    console.log(newExpense)
     const newExpenses = [...expenseData, newExpense];
+    console.log(newExpenses)
     setExpenseData((prev) => newExpenses);
   }
 
@@ -94,14 +98,14 @@ export default function ExpenseTable({ expenseData, setExpenseData }) {
       <h3>Add new expense</h3>
       <form onSubmit={handleAddNewCostSubmit}>
         <input
-          type="text"
+          type="number"
           name="cost"
           required="required"
           placeholder="Cost"
           onChange={handleAddNewExpenseChange}
         />
         <input
-          type="text"
+          type="date"
           name="date"
           required="required"
           placeholder="Date"

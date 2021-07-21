@@ -1,5 +1,9 @@
+import Moment from "moment";
+
 function randomDate() {
-  return new Date(Math.random() * Math.pow(10, 12)).getTime();
+  return Moment(parseInt(Math.random() * Math.pow(10, 12))).format(
+    "YYYY-MM-DD"
+  );
 }
 
 function randomCost(max) {

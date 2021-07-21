@@ -1,5 +1,5 @@
 import React from "react";
-
+import Moment from "moment";
 export default function EditableExpenseRow({
   expense,
   editFormData,
@@ -20,7 +20,7 @@ export default function EditableExpenseRow({
       </td>
       <td className="row_body_cell">
         <input
-          type="text"
+          type="date"
           required="required"
           placeholder="Date..."
           name="date"
