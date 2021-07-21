@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Table.scss";
-import { userTemplate } from "../../data/userTemplate";
+import { userTemplate } from "../../data/dataTemplate";
 import { useDispatch } from "react-redux";
 import { addNewUser, updateUser, deleteUser } from "../../reducers/dataSlice";
 import ReadOnlyUserRow from "./ReadOnlyUserRow";
