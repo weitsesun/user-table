@@ -1,23 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { get } from "lodash";
 import moment from "moment";
 
 export default function UserTableBody({ data, columns }) {
-  const [firstName, setFirstName] = useState(data.firstName);
-  const [lastName, setLastName] = useState(data.lastName);
 
   function renderCell(column, user) {
-    // let value =
-    //   column.id !== "date"
-    //     ? get(user, column.id, void 0)
-    //     : moment(get(user, column.id, void 0)).format("YYYY/MM/DD");
-    // console.log(user);
-    // console.log(column)
+    const [firstName, setFirstName] = useState(user.firstName);
+    const [lastName, setLastName] = useState(user.lastName);
+    
     return (
       <td key={Math.random()} className="row_body_cell">
         <input
           className="row_input"
-          value={column.id === "firstName" ? firstName : lastName}
+          value={column.id == "firstName" ? firstName : lastName}
           disabled={column.disabled}
           type={column.type}
           onChange={(e) => {
@@ -27,36 +22,6 @@ export default function UserTableBody({ data, columns }) {
           }}
         />
       </td>
-      // <>
-      //   <td key={Math.random()} className="row_body_cell">
-      //     <input
-      //       className="row_input"
-      //       value={firstName}
-      //       disabled={column.disabled}
-      //       type={column.type}
-      //       onChange={(e) => {
-      //         setFirstName(e.target.value);
-      //       }}
-      //     />
-      //   </td>
-      //   <td key={Math.random()} className="row_body_cell">
-      //     <input
-      //       className="row_input"
-      //       value={lastName}
-      //       disabled={column.disabled}
-      //       type={column.type}
-      //       onChange={(e) => {}}
-      //     />
-      //   </td>
-      //   <td key={Math.random()} className="row_body_cell">
-      //     <input
-      //       className="row_input"
-      //       value={data.totalExpense}
-      //       disabled={column.disabled}
-      //       type={column.type}
-      //     />
-      //   </td>
-      // </>
     );
   }
 
