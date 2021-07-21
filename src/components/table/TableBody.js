@@ -3,7 +3,6 @@ import { get } from "lodash";
 import moment from "moment";
 
 export default function TableBody({ data, columns }) {
-  console.log(data);
   function renderCell(column, item) {
     let value =
       column.id !== "date"
@@ -16,7 +15,9 @@ export default function TableBody({ data, columns }) {
           value={value}
           disabled={column.disabled}
           type={column.type}
-          onChange={() =>{}}
+          onChange={(e) => {
+            column.onChange(item.id, e.target.value);
+          }}
         />
       </td>
     );

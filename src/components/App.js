@@ -3,7 +3,11 @@ import "./App.scss";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "./card/Card";
 import Table from "./table/Table";
-import { calculateTotalExpenseForAll } from "../reducers/dataSlice";
+import {
+  calculateTotalExpenseForAll,
+  setFirstName,
+  setLastName
+} from "../reducers/dataSlice";
 import { setCompanyExpenseData } from "../reducers/companyExpenseSlice";
 import {
   setExpenseData,
@@ -59,8 +63,6 @@ export default function App() {
     });
   }, [data, id]);
 
-  
-
   const expenseOptions = [
     {
       title: "Name",
@@ -84,9 +86,30 @@ export default function App() {
   ];
 
   const userColumns = [
-    { id: "firstName", value: "First Name", disabled: false, type: "text" },
-    { id: "lastName", value: "Last Name", disabled: false, type: "text" },
-    { id: "totalExpense", value: "Total Expense", disabled: true, type: "number" }
+    {
+      id: "firstName",
+      value: "First Name",
+      disabled: false,
+      type: "text",
+      onChange: (id, firstName) => {
+        dispatch(setFirstName({ id, firstName }));
+      }
+    },
+    {
+      id: "lastName",
+      value: "Last Name",
+      disabled: false,
+      type: "text",
+      onChange: (id, lastName) => {
+        dispatch(setLastName({ id, lastName }));
+      }
+    },
+    {
+      id: "totalExpense",
+      value: "Total Expense",
+      disabled: true,
+      type: "number"
+    }
   ];
 
   const expenseColumns = [
