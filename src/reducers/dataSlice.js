@@ -1,4 +1,4 @@
-import { createSlice, isRejected } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { dummy_data } from "../data/data";
 
 export const dataSlice = createSlice({
