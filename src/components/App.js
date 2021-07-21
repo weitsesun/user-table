@@ -6,7 +6,8 @@ import Table from "./table/Table";
 import {
   calculateTotalExpenseForAll,
   setFirstName,
-  setLastName
+  setLastName,
+  setDataCategory
 } from "../reducers/dataSlice";
 import { setCompanyExpenseData } from "../reducers/companyExpenseSlice";
 import {
@@ -64,6 +65,10 @@ export default function App() {
       }
     });
   }, [data, id]);
+
+  useEffect(() => {
+    dispatch(setDataCategory(id, category, expenseData));
+  }, []);
 
   const expenseOptions = [
     {

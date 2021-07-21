@@ -50,6 +50,15 @@ export const dataSlice = createSlice({
         return user;
       });
     },
+    setDataCategory: (state, action) => {
+      const {id, category, data} = action.payload
+      state.data = state.data.map((user) => {
+        if(user.id === id) {
+          user.category[category] = data;
+        }
+        return user;
+      })
+    },
     setCategoryCost: (state, action) => {
       const { id, category, record_id, cost } = action.payload;
       if (!id || !category || isNaN(cost)) {
@@ -128,6 +137,7 @@ export const {
   setLastName,
   setCategoryCost,
   setCategoryDate,
+  setDataCategory,
   deleteUser,
   deleteRecord
 } = dataSlice.actions;
