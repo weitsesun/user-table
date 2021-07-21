@@ -3,28 +3,18 @@ import { dummy_data } from "../data/data";
 import "./App.scss";
 import "./Card.scss";
 import UserCard from "./UserCard";
-// import Card from "./card/Card";
+import ExpenseCard from "./ExpenseCard";
+
 import { useSelector, useDispatch } from "react-redux";
-// import Card from "./card/Card";
-// import Table from "./table/Table";
+
 import {
   calculateTotalExpenseForAll,
-  setFirstName,
-  setLastName
 } from "../reducers/dataSlice";
-// import { setCompanyExpenseData } from "../reducers/companyExpenseSlice";
-// import {
-//   setExpenseData,
-//   setUserOptions,
-//   setUserId,
-//   setCategory
-// } from "../reducers/expenseSlice";
+
 
 export default function App() {
   const { data } = useSelector((state) => state.data);
-  // const { companyExpenseData } = useSelector((state) => state.companyExpense);
-  // const { userOptions, expenseData, categoryOptions, id, category } =
-  //   useSelector((state) => state.expense);
+
 
   const dispatch = useDispatch();
 
@@ -124,6 +114,7 @@ export default function App() {
   return (
     <div className="app">
       <UserCard data={data} />
+      <ExpenseCard data={data} />
       {/* <Card title={"Users"}>
         <Table data={data} columns={userColumns} />
       </Card>

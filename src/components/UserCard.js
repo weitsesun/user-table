@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Table from "./table/Table";
 import UserTable from "./table/UserTable";
-import { useDispatch } from "react-redux";
-import { setData } from "../reducers/dataSlice";
-import { userTemplate } from "../data/userTemplate";
 
 export default function UserCard({ data = [] }) {
   const [userData, setUserData] = useState([]);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setUserData(
@@ -19,10 +14,6 @@ export default function UserCard({ data = [] }) {
       }))
     );
   }, [data]);
-
-  // useEffect(() => {
-  //   dispatch(setData({...userTemplate, ...userData}))
-  // }, [userData])
 
   return (
     <div className="card">
