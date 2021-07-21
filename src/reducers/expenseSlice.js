@@ -26,11 +26,29 @@ export const expenseSlice = createSlice({
     },
     setUserOptions: (state, action) => {
       state.userOptions = action.payload;
-    }
+    },
+    changeDateByRecordId: (state, action) => {
+      const {id, date}  = action.payload;
+      state.expenseData = state.expenseData.map(record => {
+        if(record.id === id) {
+          record = {...record, date: new Date(date).valueOf()}
+        }
+        return record;
+      })
+    },
+    changeCostByRecordId: (state, action) => {
+      const {id, cost}  = action.payload;
+      state.expenseData = state.expenseData.map(record => {
+        if(record.id === id) {
+          record = {...record, cost}
+        }
+        return record;
+      })
+    },
   }
 });
 
-export const { setExpenseData, setCategory, setUserId, setUserOptions } =
+export const { setExpenseData, setCategory, setUserId, setUserOptions, changeDateByRecordId, changeCostByRecordId } =
   expenseSlice.actions;
 
 export default expenseSlice.reducer;

@@ -13,7 +13,9 @@ import {
   setExpenseData,
   setUserOptions,
   setUserId,
-  setCategory
+  setCategory,
+  changeDateByRecordId,
+  changeCostByRecordId
 } from "../reducers/expenseSlice";
 
 export default function App() {
@@ -32,7 +34,7 @@ export default function App() {
     data.forEach((user) => {
       if (user.id === id) {
         const newExpData = user.category[category].map((record) => ({
-          id,
+          user_id: id,
           fullName: `${user.firstName} ${user.lastName}`,
           category,
           ...record
@@ -113,8 +115,24 @@ export default function App() {
   ];
 
   const expenseColumns = [
-    { id: "cost", value: "Cost", disabled: false, type: "number" },
-    { id: "date", value: "Date", disabled: false, type: "text" }
+    {
+      id: "cost",
+      value: "Cost",
+      disabled: false,
+      type: "number",
+      onChange: (id, cost) => {
+        dispatch(changeCostByRecordId({ id, cost }));
+      }
+    },
+    {
+      id: "date",
+      value: "Date",
+      disabled: false,
+      type: "text",
+      onChange: (id, date) => {
+        dispatch(changeDateByRecordId({ id, date }));
+      }
+    }
   ];
 
   return (
