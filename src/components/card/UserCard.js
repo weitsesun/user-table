@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UserTable from "./table/UserTable";
+import UserTable from "../table/UserTable";
 
 export default function UserCard({ data = [] }) {
   const [userData, setUserData] = useState([]);

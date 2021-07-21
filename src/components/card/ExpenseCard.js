@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import ExpenseTable from "./table/ExpenseTable";
+import ExpenseTable from "../table/ExpenseTable";
 
 export default function ExpenseCard({ data = [] }) {
   const [expenseData, setExpenseData] = useState([]);

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
-import "./Card.scss";
-import UserCard from "./UserCard";
-import ExpenseCard from "./ExpenseCard";
+import "./card/Card.scss";
+import UserCard from "./card/UserCard";
+import ExpenseCard from "./card/ExpenseCard";
 
 import { useSelector, useDispatch } from "react-redux";
 
