@@ -3,8 +3,19 @@ import "./Table.scss";
 import EditableExpenseRow from "./EditableExpenseRow";
 import ReadOnlyExpenseRow from "./ReadOnlyExpenseRow";
 import { v4 as uuidv4 } from "uuid";
+import {
+  updateCategory,
+  calculateTotalExpenseForAll
+} from "../../reducers/dataSlice";
+import { useDispatch } from "react-redux";
 
-export default function ExpenseTable({ expenseData, setExpenseData }) {
+export default function ExpenseTable({
+  expenseData,
+  setExpenseData,
+  selectUserId,
+  selectCategory
+}) {
+  const dispatch = useDispatch();
   const [addExpenseData, setAddExpenseData] = useState({
     cost: "",
     date: ""
@@ -39,10 +50,16 @@ export default function ExpenseTable({ expenseData, setExpenseData }) {
       cost: addExpenseData.cost,
       date: addExpenseData.date
     };
-    console.log(newExpense)
     const newExpenses = [...expenseData, newExpense];
-    console.log(newExpenses)
-    setExpenseData((prev) => newExpenses);
+    setExpenseData(newExpenses);
+    dispatch(
+      updateCategory({
+        id: selectUserId,
+        category: selectCategory,
+        data: newExpenses
+      })
+    );
+    dispatch(calculateTotalExpenseForAll());
   }
 
   function handleEditClick(e, expense) {
@@ -52,7 +69,6 @@ export default function ExpenseTable({ expenseData, setExpenseData }) {
       cost: expense.cost,
       date: expense.date
     };
-    console.dir(formValue);
     setEditFormData(formValue);
   }
 
@@ -60,7 +76,6 @@ export default function ExpenseTable({ expenseData, setExpenseData }) {
     e.preventDefault();
     console.log(id);
   }
-
 
   return (
     <>

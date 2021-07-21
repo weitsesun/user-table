@@ -19,14 +19,14 @@ export default function ExpenseCard({ data = [] }) {
 
   useEffect(() => {
     let newExpenseData = [];
-    data.forEach(user => {
-      if(user.id === selectUserId) {
-        newExpenseData = user.category[selectCategory]
+    data.forEach((user) => {
+      if (user.id === selectUserId) {
+        newExpenseData = user.category[selectCategory];
       }
-    })
-    setExpenseData(newExpenseData)
-  }, [selectCategory, selectUserId])
- 
+    });
+    setExpenseData(newExpenseData);
+  }, [selectCategory, selectUserId]);
+
   function handleSelectUserChange(e) {
     e.preventDefault();
     setSelectedUserId(e.target.value);
@@ -58,7 +58,12 @@ export default function ExpenseCard({ data = [] }) {
           ))}
         </select>
       </div>
-      <ExpenseTable expenseData={expenseData} setExpenseData={setExpenseData}/>
+      <ExpenseTable
+        expenseData={expenseData}
+        setExpenseData={setExpenseData}
+        selectUserId={selectUserId}
+        selectCategory={selectCategory}
+      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isRejected } from "@reduxjs/toolkit";
 import { dummy_data } from "../data/data";
 
 export const dataSlice = createSlice({
@@ -13,15 +13,24 @@ export const dataSlice = createSlice({
     addNewUser: (state, action) => {
       state.data = [...state.data, action.payload];
     },
-    updateUser:(state, action) => {
-      const {id, firstName, lastName} = action.payload;
-      state.data = state.data.map(user => {
-        if(user.id === id) {
+    updateUser: (state, action) => {
+      const { id, firstName, lastName } = action.payload;
+      state.data = state.data.map((user) => {
+        if (user.id === id) {
           user.firstName = firstName;
           user.lastName = lastName;
         }
         return user;
-      })
+      });
+    },
+    updateCategory: (state, action) => {
+      const { id, category, data } = action.payload;
+      state.data = state.data.map((user) => {
+        if (user.id === id) {
+          user.category[category] = data;
+        }
+        return user;
+      });
     },
     calculateTotalExpenseForAll: (state) => {
       const allCate = state.data.map((user) => user.category);
@@ -39,7 +48,7 @@ export const dataSlice = createSlice({
         return user;
       });
     },
-    
+
     deleteUser: (state, action) => {
       const id = action.payload;
       let targetIndex = -1;
@@ -51,7 +60,7 @@ export const dataSlice = createSlice({
         ...state.data.slice(0, targetIndex),
         ...state.data.slice(targetIndex + 1, state.data.length)
       ];
-    },
+    }
   }
 });
 
@@ -60,7 +69,8 @@ export const {
   addNewUser,
   updateUser,
   deleteUser,
-  calculateTotalExpenseForAll,
+  updateCategory,
+  calculateTotalExpenseForAll
 } = dataSlice.actions;
 
 export default dataSlice.reducer;
