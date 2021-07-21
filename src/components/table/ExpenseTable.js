@@ -50,13 +50,13 @@ export default function ExpenseTable({
       cost: addExpenseData.cost,
       date: addExpenseData.date
     };
-    const newExpenses = [...expenseData, newExpense];
-    setExpenseData(newExpenses);
+    const newExpenseData = [...expenseData, newExpense];
+    setExpenseData(newExpenseData);
     dispatch(
       updateCategory({
         id: selectUserId,
         category: selectCategory,
-        data: newExpenses
+        data: newExpenseData
       })
     );
     dispatch(calculateTotalExpenseForAll());
@@ -75,6 +75,28 @@ export default function ExpenseTable({
   function handleDeleteClick(e, id) {
     e.preventDefault();
     console.log(id);
+    let targetIndex = -1;
+    for(let i = 0; i < expenseData.length; i++) {
+      if(expenseData[i].id === id) {
+        targetIndex = i;
+        break;
+      }
+    }
+    if( targetIndex === -1) return;
+    const newExpenseData = [
+      ...expenseData.slice(0, targetIndex),
+      ...expenseData.slice(targetIndex + 1, expenseData.length),
+    ]
+    setExpenseData(newExpenseData);
+    dispatch(
+      updateCategory({
+        id: selectUserId,
+        category: selectCategory,
+        data: newExpenseData
+      })
+    );
+    dispatch(calculateTotalExpenseForAll());
+
   }
 
   return (
