@@ -2,8 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { get } from "lodash";
 
-export default function TableBody({ columns }) {
-  const data = useSelector((state) => state.data.data);
+export default function TableBody({ data, columns }) {
+  // const { data } = useSelector((state) => state.data);
+  // const parsedData = data.map(user => get(user, columns.map(c =), void 0))
+  // console.log(parsedData)
   /**
     const userColumns = [
       {id: "firstName", value: "First Name"},
@@ -23,12 +25,17 @@ export default function TableBody({ columns }) {
   // }
 
   function renderCell(id, item) {
-    return <td className="row_body_cell">{get(item, id, void 0)}</td>;
+    return (
+      <td key={Math.random()} className="row_body_cell">
+        {get(item, id, void 0)}
+      </td>
+    );
   }
 
   function renderRow(item) {
     return (
       <tr
+        key={Math.random()}
         className="row_body"
         style={{
           display: "grid",
@@ -40,5 +47,5 @@ export default function TableBody({ columns }) {
     );
   }
 
-  return <tbody>{data && data.map(renderRow)}</tbody>;
+  return <tbody>{data && data.map((user) => renderRow(user))}</tbody>;
 }

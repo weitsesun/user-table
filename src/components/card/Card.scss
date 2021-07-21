@@ -3,7 +3,9 @@
   padding: 1rem;
   max-width: 700px;
   width: 100%;
-  min-height: 200px;
   border: 1px solid lightgray;
   border-radius: 10px;
+  .title {
+    margin: 10px 0;
+  }
 }
