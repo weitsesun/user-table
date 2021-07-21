@@ -10,7 +10,7 @@ export default function EditableExpenseRow({
     <tr className="row_body">
       <td className="row_body_cell">
         <input
-          type="text"
+          type="number"
           required="required"
           placeholder="Cost..."
           name="cost"

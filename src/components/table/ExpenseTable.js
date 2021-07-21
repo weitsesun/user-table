@@ -74,19 +74,18 @@ export default function ExpenseTable({
 
   function handleDeleteClick(e, id) {
     e.preventDefault();
-    console.log(id);
     let targetIndex = -1;
-    for(let i = 0; i < expenseData.length; i++) {
-      if(expenseData[i].id === id) {
+    for (let i = 0; i < expenseData.length; i++) {
+      if (expenseData[i].id === id) {
         targetIndex = i;
         break;
       }
     }
-    if( targetIndex === -1) return;
+    if (targetIndex === -1) return;
     const newExpenseData = [
       ...expenseData.slice(0, targetIndex),
-      ...expenseData.slice(targetIndex + 1, expenseData.length),
-    ]
+      ...expenseData.slice(targetIndex + 1, expenseData.length)
+    ];
     setExpenseData(newExpenseData);
     dispatch(
       updateCategory({
@@ -96,12 +95,36 @@ export default function ExpenseTable({
       })
     );
     dispatch(calculateTotalExpenseForAll());
+  }
 
+  function handleEditFormSubmit(e) {
+    e.preventDefault();
+    console.log();
+    const newFormData = {
+      id: editExpenseId,
+      cost: editFormData.cost,
+      date: editFormData.cost
+    };
+    const newExpenseData = [...expenseData];
+    const targetIndex = newExpenseData.findIndex(
+      (expense) => expense.id === editExpenseId
+    );
+    newExpenseData[targetIndex] = newFormData;
+    setExpenseData(newExpenseData);
+    setEditExpenseId(null);
+    dispatch(
+      updateCategory({
+        id: selectUserId,
+        category: selectCategory,
+        data: newExpenseData
+      })
+    );
+    dispatch(calculateTotalExpenseForAll());
   }
 
   return (
     <>
-      <form>
+      <form onSubmit={handleEditFormSubmit}>
         <table className="table">
           <thead>
             <tr className="row_header">
