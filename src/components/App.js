@@ -4,7 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import Card from "./card/Card";
 import Table from "./table/Table";
 import { calculateTotalExpenseForAll } from "../reducers/dataSlice";
-import { setExpenseData, setUserOptions } from "../reducers/expenseSlice";
+import {
+  setExpenseData,
+  setUserOptions,
+  setUserId,
+  setCategory
+} from "../reducers/expenseSlice";
 
 export default function App() {
   const { data } = useSelector((state) => state.data);
@@ -31,8 +36,8 @@ export default function App() {
       }
     });
     const newUserOptions = data.map((user) => ({
-      user_id: user.user_id,
-      fullName: `${user.firstName} ${user.lastName}`
+      id: user.user_id,
+      value: `${user.firstName} ${user.lastName}`
     }));
     dispatch(setUserOptions(newUserOptions));
   }, [data, user_id, category]);
@@ -47,9 +52,22 @@ export default function App() {
     { id: "cost", value: "Cost" },
     { id: "date", value: "Date" }
   ];
+
   const expenseOptions = [
-    { title: "Name", options: userOptions },
-    { title: "Category", options: categoryOptions }
+    {
+      title: "Name",
+      options: userOptions,
+      onChange: (e) => {
+        dispatch(setUserId(e?.target?.value));
+      },
+      value: user_id
+    },
+    {
+      title: "Category",
+      options: categoryOptions,
+      onChange: (e) => dispatch(setCategory(e?.target?.value)),
+      value: category
+    }
   ];
 
   return (

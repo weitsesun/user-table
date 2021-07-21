@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+const categoryOptions = [
+  { id: "food", value: "food" },
+  { id: "travel", value: "travel" },
+  { id: "health", value: "health" },
+  { id: "supplies", value: "supplies" }
+];
 export const expenseSlice = createSlice({
   name: "expense",
   initialState: {
     expenseData: [],
     userOptions: [],
-    categoryOptions: ["food", "travel", "health", "supplies"],
-    user_id: 1,
+    categoryOptions,
+    user_id: "1",
     category: "food"
   },
   reducers: {
@@ -25,6 +30,7 @@ export const expenseSlice = createSlice({
   }
 });
 
-export const { setExpenseData, setCategory, setUserId, setUserOptions } = expenseSlice.actions;
+export const { setExpenseData, setCategory, setUserId, setUserOptions } =
+  expenseSlice.actions;
 
 export default expenseSlice.reducer;

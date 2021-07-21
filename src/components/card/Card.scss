@@ -8,4 +8,12 @@
   .title {
     margin: 10px 0;
   }
+  .option-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    .option {
+      padding: 10px;
+    }
+  }
 }
