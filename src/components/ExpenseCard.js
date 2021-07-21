@@ -1,24 +1,93 @@
 import React, { useState, useEffect } from "react";
-import UserTable from "./table/UserTable";
+import { v4 as uuidv4 } from "uuid";
+import ExpenseTable from "./table/ExpenseTable";
 
 export default function ExpenseCard({ data = [] }) {
   const [expenseData, setExpenseData] = useState([]);
+  const [userOptions, setUserOptions] = useState([]);
+  const [selectUserId, setSelectedUserId] = useState("1");
+  const [selectCategory, setSelectCategory] = useState("food");
 
   useEffect(() => {
-    setExpenseData(
+    setUserOptions(
       data.map((user) => ({
-        id: user?.id,
-        firstName: user?.firstName,
-        lastName: user?.lastName,
-        totalExpense: user?.totalExpense
+        id: user.id,
+        value: `${user.firstName} ${user.lastName}`
       }))
     );
   }, [data]);
 
+  useEffect(() => {
+    let newExpenseData = [];
+    data.forEach(user => {
+      if(user.id === selectUserId) {
+        newExpenseData = user.category[selectCategory]
+      }
+    })
+    setExpenseData(newExpenseData)
+  }, [selectCategory, selectUserId])
+  // useEffect(() => {
+  //   data.forEach((user) => {
+  //     if (user.id === id) {
+  //       const newExpData = user.category[category].map((record) => ({
+  //         id,
+  //         fullName: `${user.firstName} ${user.lastName}`,
+  //         category,
+  //         ...record
+  //       }));
+  //       setExpenseData(newExpData);
+  //     }
+  //   });
+  //   const newUserOptions = data.map((user) => ({
+  //     id: user.id,
+  //     value: `${user.firstName} ${user.lastName}`
+  //   }));
+  //   setUserOptions(newUserOptions);
+  // }, [data]);
+
+  // useEffect(() => {
+  //   setExpenseData(
+  //     data.map((user) => ({
+  //       id: user?.id,
+  //       firstName: user?.firstName,
+  //       lastName: user?.lastName,
+  //       totalExpense: user?.totalExpense
+  //     }))
+  //   );
+  // }, [data]);
+  function handleSelectUserChange(e) {
+    e.preventDefault();
+    setSelectedUserId(e.target.value);
+  }
+  function handleSelectCategoryChange(e) {
+    e.preventDefault();
+    setSelectCategory(e.target.value);
+  }
+  const categoryOptions = ["food", "supplies", "travel", "health"];
+
   return (
     <div className="card">
-      <h1 className="title">Users</h1>
-      <UserTable users={expenseData} setUserData={setExpenseData} />
+      <h1 className="title">Expense</h1>
+      <div className="option-container" key={uuidv4()}>
+        <label htmlFor={"user"}>User</label>
+        <select onChange={handleSelectUserChange} value={selectUserId}>
+          {userOptions.map((option) => (
+            <option key={uuidv4()} value={option.id}>
+              {option.value}
+            </option>
+          ))}
+        </select>
+        <label htmlFor={"category"}>Category</label>
+        <select onChange={handleSelectCategoryChange} value={selectCategory}>
+          {categoryOptions.map((category) => (
+            <option key={uuidv4()} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+      <ExpenseTable expenseData={expenseData} setExpenseData={setExpenseData}/>
+      {/* <UserTable users={expenseData} setUserData={setExpenseData} /> */}
     </div>
   );
 }
