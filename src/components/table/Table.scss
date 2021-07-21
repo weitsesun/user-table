@@ -7,10 +7,19 @@
   }
 
   .row_body_cell{
-    text-align: right;
+    text-align: center;
     border-top: 1px solid black;
     border-right: 1px solid black;
-    padding: 0 10px;
+    .row_input {
+      padding: 5px 10px;
+      width: 100%;
+      border: none;
+      text-align: right;
+      height: 100%;
+    }
+    .row_input:disabled {
+      background: lightgray;
+    }
   }
   .row_body_cell:last-child,
   .row_header_cell:last-child {

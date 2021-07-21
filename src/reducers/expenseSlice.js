@@ -11,12 +11,12 @@ export const expenseSlice = createSlice({
     expenseData: [],
     userOptions: [],
     categoryOptions,
-    user_id: "1",
+    id: "1",
     category: "food"
   },
   reducers: {
     setUserId: (state, action) => {
-      state.user_id = action.payload;
+      state.id = action.payload;
     },
     setCategory: (state, action) => {
       state.category = action.payload;

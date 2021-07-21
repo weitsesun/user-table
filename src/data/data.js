@@ -8,7 +8,7 @@ function randomCost(max) {
 
 export const dummy_data = [
   {
-    user_id: "1",
+    id: "1",
     firstName: "Tony",
     lastName: "Stark",
     category: {
@@ -31,7 +31,7 @@ export const dummy_data = [
     }
   },
   {
-    user_id: "2",
+    id: "2",
     firstName: "Steve",
     lastName: "Rogers",
     category: {

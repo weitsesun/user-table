@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Card from "./card/Card";
 import Table from "./table/Table";
 import { calculateTotalExpenseForAll } from "../reducers/dataSlice";
+import { setCompanyExpenseData } from "../reducers/companyExpenseSlice";
 import {
   setExpenseData,
   setUserOptions,
@@ -13,10 +14,10 @@ import {
 
 export default function App() {
   const { data } = useSelector((state) => state.data);
-  const { userOptions } = useSelector((state) => state.expense);
-  const { expenseData, categoryOptions, user_id, category } = useSelector(
-    (state) => state.expense
-  );
+  const { companyExpenseData } = useSelector((state) => state.companyExpense);
+  const { userOptions, expenseData, categoryOptions, id, category } =
+    useSelector((state) => state.expense);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,9 +26,9 @@ export default function App() {
 
   useEffect(() => {
     data.forEach((user) => {
-      if (user.user_id === user_id) {
+      if (user.id === id) {
         const newExpData = user.category[category].map((record) => ({
-          user_id,
+          id,
           fullName: `${user.firstName} ${user.lastName}`,
           category,
           ...record
@@ -36,22 +37,29 @@ export default function App() {
       }
     });
     const newUserOptions = data.map((user) => ({
-      id: user.user_id,
+      id: user.id,
       value: `${user.firstName} ${user.lastName}`
     }));
     dispatch(setUserOptions(newUserOptions));
-  }, [data, user_id, category]);
+  }, [data, id, category]);
 
-  const userColumns = [
-    { id: "firstName", value: "First Name" },
-    { id: "lastName", value: "Last Name" },
-    { id: "totalExpense", value: "Total Expense" }
-  ];
+  useEffect(() => {
+    const category = ["food", "travel", "health", "supplies"];
+    data.forEach((user) => {
+      if (user.id === id) {
+        const newCompanyExpenseData = category.map((category) => ({
+          category,
+          cost: user.category[category].reduce(
+            (acc, item) => (acc += Number(item.cost)),
+            0
+          )
+        }));
+        dispatch(setCompanyExpenseData(newCompanyExpenseData));
+      }
+    });
+  }, [data, id]);
 
-  const expenseColumns = [
-    { id: "cost", value: "Cost" },
-    { id: "date", value: "Date" }
-  ];
+  
 
   const expenseOptions = [
     {
@@ -60,7 +68,7 @@ export default function App() {
       onChange: (e) => {
         dispatch(setUserId(e?.target?.value));
       },
-      value: user_id
+      value: id
     },
     {
       title: "Category",
@@ -70,6 +78,22 @@ export default function App() {
     }
   ];
 
+  const companyExpenseColumns = [
+    { id: "category", value: "Category", disabled: true, type: "text" },
+    { id: "cost", value: "Cost", disabled: true, type: "number" }
+  ];
+
+  const userColumns = [
+    { id: "firstName", value: "First Name", disabled: false, type: "text" },
+    { id: "lastName", value: "Last Name", disabled: false, type: "text" },
+    { id: "totalExpense", value: "Total Expense", disabled: true, type: "number" }
+  ];
+
+  const expenseColumns = [
+    { id: "cost", value: "Cost", disabled: false, type: "number" },
+    { id: "date", value: "Date", disabled: false, type: "text" }
+  ];
+
   return (
     <div className="app">
       <Card title={"Users"}>
@@ -77,6 +101,9 @@ export default function App() {
       </Card>
       <Card title={"Expense"} options={expenseOptions}>
         <Table data={expenseData} columns={expenseColumns} />
+      </Card>
+      <Card title={"Company Expense"}>
+        <Table data={companyExpenseData} columns={companyExpenseColumns} />
       </Card>
     </div>
   );

@@ -32,7 +32,7 @@ export const dataSlice = createSlice({
         return;
       }
       state.data = state.data.map((user) => {
-        if (user.user_id === id) {
+        if (user.id === id) {
           user.firstName = firstName;
         }
         return user;
@@ -44,7 +44,7 @@ export const dataSlice = createSlice({
         return;
       }
       state.data = state.data.map((user) => {
-        if (user.user_id === id) {
+        if (user.id === id) {
           user.lastName = lastName;
         }
         return user;
@@ -56,7 +56,7 @@ export const dataSlice = createSlice({
         return;
       }
       state.data = state.data.map((user) => {
-        if (user.user_id === id) {
+        if (user.id === id) {
           user.category[category].map((record) => {
             if (record.id === record_id) {
               record.cost = cost;
@@ -73,7 +73,7 @@ export const dataSlice = createSlice({
         return;
       }
       state.data = state.data.map((user) => {
-        if (user.user_id === id) {
+        if (user.id === id) {
           user.category[category].map((record) => {
             if (record.id === record_id) {
               record.date = date;
@@ -88,7 +88,7 @@ export const dataSlice = createSlice({
       const id = action.payload;
       let targetIndex = -1;
       state.data.forEach((user, idx) => {
-        if (user.user_id === id) targetIndex = idx;
+        if (user.id === id) targetIndex = idx;
       });
       if (targetIndex === -1) return;
       state.data = [
@@ -99,7 +99,7 @@ export const dataSlice = createSlice({
     deleteRecord: (state, action) => {
       const { id, category, record_id } = action.payload;
       state.data = state.data.map((user) => {
-        if (user.user_id === id) {
+        if (user.id === id) {
           let targetIndex = -1;
           user.category[category].forEach((record, idx) => {
             if (record.id === record_id) {

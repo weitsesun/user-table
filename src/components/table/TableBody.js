@@ -1,14 +1,23 @@
 import React from "react";
 import { get } from "lodash";
-import moment from "moment"
+import moment from "moment";
 
 export default function TableBody({ data, columns }) {
-  function renderCell(id, item) {
+  console.log(data);
+  function renderCell(column, item) {
+    let value =
+      column.id !== "date"
+        ? get(item, column.id, void 0)
+        : moment(get(item, column.id, void 0)).format("YYYY/MM/DD");
     return (
       <td key={Math.random()} className="row_body_cell">
-        {id !== "date"
-          ? get(item, id, void 0)
-          : moment(get(item, id, void 0)).format("YYYY/ MM/ DD ")}
+        <input
+          className="row_input"
+          value={value}
+          disabled={column.disabled}
+          type={column.type}
+          onChange={() =>{}}
+        />
       </td>
     );
   }
@@ -23,7 +32,7 @@ export default function TableBody({ data, columns }) {
           gridTemplateColumns: `repeat(${columns.length}, 1fr)`
         }}
       >
-        {columns.map((column) => renderCell(column.id, item))}
+        {columns.map((column) => renderCell(column, item))}
       </tr>
     );
   }
