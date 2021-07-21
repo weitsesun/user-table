@@ -1,20 +1,14 @@
 import React, { useState } from "react";
 import "./Table.scss";
-import { userTemplate } from "../../data/userTemplate";
-import { useDispatch } from "react-redux";
-import { addNewUser, updateUser, deleteUser } from "../../reducers/dataSlice";
-import ReadOnlyUserRow from "./ReadOnlyUserRow";
-import EditableUserRow from "./EditableUserRow";
-import { v4 as uuidv4 } from "uuid";
+import EditableExpenseRow from "./EditableExpenseRow";
 import ReadOnlyExpenseRow from "./ReadOnlyExpenseRow";
 
 export default function ExpenseTable({ expenseData, setExpenseData }) {
-  // const dispatch = useDispatch();
   const [addExpenseData, setAddExpenseData] = useState({
     cost: "",
     date: ""
   });
-  const [editContactId, setEditContactId] = useState();
+  const [editExpenseId, setEditExpenseId] = useState();
   const [editFormData, setEditFormData] = useState({
     cost: "",
     date: ""
@@ -28,14 +22,14 @@ export default function ExpenseTable({ expenseData, setExpenseData }) {
     setAddExpenseData(newUserData);
   }
 
-  // function handleEditFormChange(e) {
-  //   e.preventDefault();
-  //   const fieldName = e.target.getAttribute("name");
-  //   const fieldValue = e.target.value;
-  //   const newEditData = { ...editFormData };
-  //   newEditData[fieldName] = fieldValue;
-  //   setEditFormData(newEditData);
-  // }
+  function handleEditFormChange(e) {
+    e.preventDefault();
+    const fieldName = e.target.getAttribute("name");
+    const fieldValue = e.target.value;
+    const newEditData = { ...editFormData };
+    newEditData[fieldName] = fieldValue;
+    setEditFormData(newEditData);
+  }
 
   function handleAddNewCostSubmit(e) {
     e.preventDefault();
@@ -45,40 +39,26 @@ export default function ExpenseTable({ expenseData, setExpenseData }) {
     };
     const newExpenses = [...expenseData, newExpense];
     setExpenseData((prev) => newExpenses);
-    // dispatch(addNewUser({ ...userTemplate, ...addUserData, id: uuidv4() }));
   }
 
-  function handleEditClick(e, user) {
+  function handleEditClick(e, expense) {
     e.preventDefault();
-    setEditContactId(user.id);
+    setEditExpenseId(expense.id);
     const formValue = {
-      firstName: user.firstName,
-      lastName: user.lastName
+      cost: expense.cost,
+      date: expense.date
     };
     setEditFormData(formValue);
   }
 
   function handleDeleteClick(e, id) {
-    e.preventDefault()
+    e.preventDefault();
     console.log(id);
-    // dispatch(deleteUser(id));
   }
 
-  // function handleEditFormSubmit(e) {
-  //   e.preventDefault();
-  //   dispatch(
-  //     updateUser({
-  //       id: editContactId,
-  //       firstName: editFormData.firstName,
-  //       lastName: editFormData.lastName
-  //     })
-  //   );
-  //   setEditContactId(null);
-  // }
 
   return (
     <>
-      {/* <form onSubmit={handleEditFormSubmit}> */}
       <form>
         <table className="table">
           <thead>
@@ -91,27 +71,22 @@ export default function ExpenseTable({ expenseData, setExpenseData }) {
           <tbody>
             {expenseData.map((expense) => (
               <>
-                <ReadOnlyExpenseRow expense={expense} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick}/>
-              </>
-            ))}
-            {/* {users.map((user) => (
-              <>
-                {editContactId === user.id ? (
-                  <EditableUserRow
-                    user={user}
-                    editFormData={editFormData}
+                {editExpenseId === expense.id ? (
+                  <EditableExpenseRow
+                    expense={expense}
+                    editFormData={expenseData}
                     handleEditFormChange={handleEditFormChange}
                     handleDeleteClick={handleDeleteClick}
                   />
                 ) : (
-                  <ReadOnlyUserRow
-                    user={user}
+                  <ReadOnlyExpenseRow
+                    expense={expense}
                     handleEditClick={handleEditClick}
                     handleDeleteClick={handleDeleteClick}
                   />
                 )}
               </>
-            ))} */}
+            ))}
           </tbody>
         </table>
       </form>

@@ -26,35 +26,7 @@ export default function ExpenseCard({ data = [] }) {
     })
     setExpenseData(newExpenseData)
   }, [selectCategory, selectUserId])
-  // useEffect(() => {
-  //   data.forEach((user) => {
-  //     if (user.id === id) {
-  //       const newExpData = user.category[category].map((record) => ({
-  //         id,
-  //         fullName: `${user.firstName} ${user.lastName}`,
-  //         category,
-  //         ...record
-  //       }));
-  //       setExpenseData(newExpData);
-  //     }
-  //   });
-  //   const newUserOptions = data.map((user) => ({
-  //     id: user.id,
-  //     value: `${user.firstName} ${user.lastName}`
-  //   }));
-  //   setUserOptions(newUserOptions);
-  // }, [data]);
-
-  // useEffect(() => {
-  //   setExpenseData(
-  //     data.map((user) => ({
-  //       id: user?.id,
-  //       firstName: user?.firstName,
-  //       lastName: user?.lastName,
-  //       totalExpense: user?.totalExpense
-  //     }))
-  //   );
-  // }, [data]);
+ 
   function handleSelectUserChange(e) {
     e.preventDefault();
     setSelectedUserId(e.target.value);
@@ -87,7 +59,6 @@ export default function ExpenseCard({ data = [] }) {
         </select>
       </div>
       <ExpenseTable expenseData={expenseData} setExpenseData={setExpenseData}/>
-      {/* <UserTable users={expenseData} setUserData={setExpenseData} /> */}
     </div>
   );
 }
