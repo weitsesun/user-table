@@ -48,6 +48,7 @@ export default function ExpenseTable({ expenseData, setExpenseData }) {
       cost: expense.cost,
       date: expense.date
     };
+    console.dir(formValue);
     setEditFormData(formValue);
   }
 
@@ -74,7 +75,7 @@ export default function ExpenseTable({ expenseData, setExpenseData }) {
                 {editExpenseId === expense.id ? (
                   <EditableExpenseRow
                     expense={expense}
-                    editFormData={expenseData}
+                    editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
                     handleDeleteClick={handleDeleteClick}
                   />
