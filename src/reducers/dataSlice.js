@@ -10,6 +10,19 @@ export const dataSlice = createSlice({
     setData: (state, action) => {
       state.data = action.payload;
     },
+    addNewUser: (state, action) => {
+      state.data = [...state.data, action.payload];
+    },
+    updateUser:(state, action) => {
+      const {id, firstName, lastName} = action.payload;
+      state.data = state.data.map(user => {
+        if(user.id === id) {
+          user.firstName = firstName;
+          user.lastName = lastName;
+        }
+        return user;
+      })
+    },
     calculateTotalExpenseForAll: (state) => {
       const allCate = state.data.map((user) => user.category);
       const allCost = allCate.map((item) =>
@@ -26,30 +39,8 @@ export const dataSlice = createSlice({
         return user;
       });
     },
-    setFirstName: (state, action) => {
-      const { id, firstName } = action.payload;
-      if (!id || !firstName) {
-        return;
-      }
-      state.data = state.data.map((user) => {
-        if (user.id === id) {
-          user.firstName = firstName;
-        }
-        return user;
-      });
-    },
-    setLastName: (state, action) => {
-      const { id, lastName } = action.payload;
-      if (!id || !lastName) {
-        return;
-      }
-      state.data = state.data.map((user) => {
-        if (user.id === id) {
-          user.lastName = lastName;
-        }
-        return user;
-      });
-    },
+    
+    
     setCategoryCost: (state, action) => {
       const { id, category, record_id, cost } = action.payload;
       if (!id || !category || isNaN(cost)) {
@@ -123,13 +114,13 @@ export const dataSlice = createSlice({
 
 export const {
   setData,
+  addNewUser,
+  updateUser,
   calculateTotalExpenseForAll,
-  setFirstName,
-  setLastName,
   setCategoryCost,
   setCategoryDate,
   deleteUser,
-  deleteRecord
+  deleteRecord,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;

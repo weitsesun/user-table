@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Table from "./table/Table";
 import UserTable from "./table/UserTable";
+import { useDispatch } from "react-redux";
+import { setData } from "../reducers/dataSlice";
+import { userTemplate } from "../data/userTemplate";
 
 export default function UserCard({ data = [] }) {
   const [userData, setUserData] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setUserData(
       data.map((user) => ({
+        id: user?.id,
         firstName: user?.firstName,
         lastName: user?.lastName,
         totalExpense: user?.totalExpense
@@ -15,31 +20,14 @@ export default function UserCard({ data = [] }) {
     );
   }, [data]);
 
-  const columns = [
-    {
-      id: "firstName",
-      value: "First Name",
-      disabled: false,
-      type: "text"
-    },
-    {
-      id: "lastName",
-      value: "Last Name",
-      disabled: false,
-      type: "text"
-    },
-    {
-      id: "totalExpense",
-      value: "Total Expense",
-      disabled: true,
-      type: "number"
-    }
-  ];
+  // useEffect(() => {
+  //   dispatch(setData({...userTemplate, ...userData}))
+  // }, [userData])
 
   return (
     <div className="card">
       <h1 className="title">Users</h1>
-      <UserTable data={userData} columns={columns}/>
+      <UserTable users={userData} setUserData={setUserData} />
     </div>
   );
 }
