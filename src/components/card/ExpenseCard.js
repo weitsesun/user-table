@@ -43,7 +43,7 @@ export default function ExpenseCard({ data = [] }) {
       <div className="option-container" key={uuidv4()}>
         <label htmlFor={"user"}>User</label>
         <select onChange={handleSelectUserChange} value={selectUserId}>
-          <option value="" disabled selected>
+          <option value="" selected>
             Select user
           </option>
           {userOptions.map((option) => (
@@ -66,6 +66,7 @@ export default function ExpenseCard({ data = [] }) {
         setExpenseData={setExpenseData}
         selectUserId={selectUserId}
         selectCategory={selectCategory}
+        setSelectedUserId={setSelectedUserId}
       />
     </div>
   );

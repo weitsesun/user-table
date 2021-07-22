@@ -13,7 +13,8 @@ export default function ExpenseTable({
   expenseData,
   setExpenseData,
   selectUserId,
-  selectCategory
+  selectCategory,
+  setSelectedUserId
 }) {
   const dispatch = useDispatch();
   const [addExpenseData, setAddExpenseData] = useState({
@@ -87,6 +88,7 @@ export default function ExpenseTable({
       ...expenseData.slice(targetIndex + 1, expenseData.length)
     ];
     setExpenseData(newExpenseData);
+    setSelectedUserId("")
     dispatch(
       updateCategory({
         id: selectUserId,
