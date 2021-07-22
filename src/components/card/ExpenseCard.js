@@ -5,7 +5,7 @@ import ExpenseTable from "../table/ExpenseTable";
 export default function ExpenseCard({ data = [] }) {
   const [expenseData, setExpenseData] = useState([]);
   const [userOptions, setUserOptions] = useState([]);
-  const [selectUserId, setSelectedUserId] = useState("1");
+  const [selectUserId, setSelectedUserId] = useState("");
   const [selectCategory, setSelectCategory] = useState("food");
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function ExpenseCard({ data = [] }) {
       }
     });
     setExpenseData(newExpenseData);
-  }, [selectCategory, selectUserId]);
+  }, [selectCategory, selectUserId, data]);
 
   function handleSelectUserChange(e) {
     e.preventDefault();
@@ -43,6 +43,9 @@ export default function ExpenseCard({ data = [] }) {
       <div className="option-container" key={uuidv4()}>
         <label htmlFor={"user"}>User</label>
         <select onChange={handleSelectUserChange} value={selectUserId}>
+          <option value="" disabled selected>
+            Select user
+          </option>
           {userOptions.map((option) => (
             <option key={uuidv4()} value={option.id}>
               {option.value}
