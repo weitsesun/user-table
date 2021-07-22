@@ -12,10 +12,3 @@ export const userTemplate = {
   },
   totalExpense: 0
 };
-
-export const categoryTemplate = {
-  food: [{ id: uuidv4(), cost: 0, date: new Date() }],
-  travel: [{ id: uuidv4(), cost: 0, date: new Date() }],
-  health: [{ id: uuidv4(), cost: 0, date: new Date() }],
-  supplies: [{ id: uuidv4(), cost: 0, date: new Date() }]
-};
