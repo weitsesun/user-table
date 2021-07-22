@@ -5,10 +5,10 @@ export const userTemplate = {
   firstName: "",
   lastName: "",
   category: {
-    food: [{ id: uuidv4(), cost: 0, date: new Date() }],
-    travel: [{ id: uuidv4(), cost: 0, date: new Date() }],
-    health: [{ id: uuidv4(), cost: 0, date: new Date() }],
-    supplies: [{ id: uuidv4(), cost: 0, date: new Date() }]
+    food: [],
+    travel: [],
+    health: [],
+    supplies: []
   },
   totalExpense: 0
 };
