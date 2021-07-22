@@ -25,7 +25,6 @@ export default function CompanyExpenseCard({ data = [] }) {
         cost: value
       })
     );
-    console.log(newCompanyExpenseData);
     setCompanyExpenseData(newCompanyExpenseData);
   }, [data]);
 
