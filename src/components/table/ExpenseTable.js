@@ -99,11 +99,10 @@ export default function ExpenseTable({
 
   function handleEditFormSubmit(e) {
     e.preventDefault();
-    console.log();
     const newFormData = {
       id: editExpenseId,
       cost: editFormData.cost,
-      date: editFormData.cost
+      date: editFormData.date
     };
     const newExpenseData = [...expenseData];
     const targetIndex = newExpenseData.findIndex(
