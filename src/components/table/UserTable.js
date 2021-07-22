@@ -58,7 +58,7 @@ export default function UserTable({ users, setUserData }) {
   }
 
   function handleDeleteClick(e, id) {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(deleteUser(id));
   }
 

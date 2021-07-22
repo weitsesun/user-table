@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function EditableUserRow({ user, editFormData, handleEditFormChange, handleDeleteClick }) {
+export default function EditableUserRow({
+  user,
+  editFormData,
+  handleEditFormChange,
+  handleDeleteClick
+}) {
   return (
     <tr className="row_body">
       <td className="row_body_cell">
@@ -26,7 +31,9 @@ export default function EditableUserRow({ user, editFormData, handleEditFormChan
       <td className="row_body_cell">{user.totalExpense}</td>
       <td className="row_body_cell">
         <button type="submit">Save</button>
-        <button type="button" onClick={(e) => handleDeleteClick(e, user.id)}>Delete</button>
+        <button type="button" onClick={(e) => handleDeleteClick(e, user.id)}>
+          Delete
+        </button>
       </td>
     </tr>
   );
